@@ -1,42 +1,56 @@
-# a=[5,10,18,15,25, "Python"]
-# for x in a:
-#     if not isinstance(x, int):
-#         a.remove(x)
-#     elif  (x % 5 )!=0:
-#         a.remove(x)
-#
-# print(sum(a))
+import pandas as pd
+
+df = pd.read_csv("Studenta_data.csv")
+
+print("****************************************************************************************")
+print("Original data set")
+print("****************************************************************************************")
+print(df)
+# df.isnull()
+# df.info()
+# df.describe()
+
+#Create a new colum by adding two column
+
+df["Total_Marks"] = df["python"] + df["math"]
+print("****************************************************************************************")
+print("Data set after adding new column")
+print("****************************************************************************************")
+print(df)
 
 
-a=[1,2,3,4,5,11,12,6]
-b=[3,4,5,6]
 
-u =[]
+#Print 3 row new file
 
-for i in range(len(a)-1,-1,-1):
-    if( a[i] in b):
-        a.pop(i)
+new_3_row_file = df.head(3).to_csv("new_3_row_file.csv")
+df3 = pd.read_csv("new_3_row_file.csv")
+print("****************************************************************************************")
+print("Getting three rows only")
+print("****************************************************************************************")
+print(df3)
 
-final = (a + b)
-final.sort(reverse=True)
 
-print(final)
 
-number_of_student = int(input("Provide total number of student: "))
-student_marks ={}
+# print(df.head())
+# print(df.tail())
+# print(df.sample())
 
-for x in range(number_of_student):
-    name = input("provide the name of the student: ")
-    num_of_subjects = int(input("Provide number of subjects: "))
-    subject_dict = {}
-    for y in range(num_of_subjects):
-        subject = input("Subject name: ")
-        marks = int(input("Marks: "))
-        temp_subject_dict = {subject:marks}
-        subject_dict.update(temp_subject_dict)
-    print(subject_dict)
-    temp_student_marks ={name:subject_dict}
-    student_marks.update(temp_student_marks)
 
-print(student_marks)
+#To Filter a data set, her filtering student who score greater than 90
+
+y = df.loc[df["python"] > 90, ["Student_Name", "python"]]
+print("****************************************************************************************")
+print("Selecting students who scored over 90")
+print("****************************************************************************************")
+print(y)
+
+
+
+#selecting multiple rows and column, here I am getting name of the student and total marks
+
+z = df.iloc[0:3, [0, -1]]
+print("****************************************************************************************")
+print("Name of the student and total marks")
+print("****************************************************************************************")
+print(z)
 
